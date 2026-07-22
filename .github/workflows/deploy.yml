@@ -1,4 +1,4 @@
-name: Deploy STUDIO_J_V-CAM.zip to Pages
+name: Deploy zip to Pages
 
 on:
   push:
@@ -21,11 +21,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unzip STUDIO_J_V-CAM.zip into _site
+      - name: Unzip the site archive into _site
         run: |
           rm -rf _site
           mkdir -p _site
-          unzip -o "STUDIO_J_V-CAM.zip" -d _site
+          ZIP="$(ls -S *.zip | head -n 1)"
+          echo "Found archive: $ZIP"
+          unzip -o "$ZIP" -d _site
           echo "---- contents of _site ----"
           ls -la _site
 
